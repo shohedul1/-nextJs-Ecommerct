@@ -6,7 +6,6 @@ import ProductRow from "@/components/admin-pannal/ProductRow";
 import { setLoading } from "@/redux/features/loadingSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export interface IProduct {
@@ -24,23 +23,24 @@ const Dashboard = () => {
   const [updateTable, setUpdateTable] = useState(false);
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
-  const fetchProducts = async () => {
-    dispatch(setLoading(true));
-    try {
-      const res = await axios.get("/api/get_product");
-      setProducts(res.data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
+
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      dispatch(setLoading(true));
+      try {
+        const res = await axios.get("/api/get_product");
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+
     fetchProducts();
-  }, [updateTable]); // Add updateTable as a dependency to refetch data when it changes
+  }, [updateTable]);
 
   return (
     <div>

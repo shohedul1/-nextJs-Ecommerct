@@ -3,12 +3,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 
 const initialState: IProduct = {
-    _id: "",
-    imgSrc: "",
-    fileKey: "",
-    name: "",
-    price: "",
-    category: "",
+  _id: "",
+  imgSrc: "",
+  fileKey: "",
+  name: "",
+  price: "",
+  category: "",
 };
 
 export const productReducer = createSlice({
@@ -18,8 +18,6 @@ export const productReducer = createSlice({
     setProduct: (state, action: PayloadAction<IProduct>) => {
       return action.payload;
     }
-
-
 
   },
 })
