@@ -18,7 +18,6 @@ export const productReducer = createSlice({
     setProduct: (state, action: PayloadAction<IProduct>) => {
       return action.payload;
     }
-
   },
 })
 
