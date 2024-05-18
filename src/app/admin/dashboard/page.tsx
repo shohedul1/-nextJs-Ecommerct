@@ -5,7 +5,6 @@ import Popup from "@/components/admin-pannal/Popup";
 import ProductRow from "@/components/admin-pannal/ProductRow";
 import { setLoading } from "@/redux/features/loadingSlice";
 import { useAppDispatch } from "@/redux/hooks";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 export interface IProduct {
@@ -28,15 +27,19 @@ const Dashboard = () => {
     const fetchProducts = async () => {
       dispatch(setLoading(true));
       try {
-        const res = await axios.get("/api/get_product");
-        setProducts(res.data);
+        const res = await fetch("/api/get_product", {
+          cache: "no-store"
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setProducts(data);
+        }
       } catch (err) {
         console.error("Error fetching products:", err);
       } finally {
         dispatch(setLoading(false));
       }
     };
-
     fetchProducts();
   }, [updateTable, dispatch]);
 
